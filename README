@@ -14,3 +14,4 @@
     fi;
     config checkout
     config config status.showUntrackedFiles no
+    config push --set-upstream origin master
