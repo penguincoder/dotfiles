@@ -1,5 +1,5 @@
 test -f /etc/bashrc && . /etc/bashrc || true
-test -f $HOME/.bash_aliases && . .bash_aliases || true
+test -f $HOME/.bash_aliases && . $HOME/.bash_aliases || true
 
 #export AWS_ACCESS_KEY_ID=
 #export AWS_SECRET_ACCESS_KEY=
