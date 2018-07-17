@@ -14,4 +14,4 @@
     fi;
     config checkout
     config config status.showUntrackedFiles no
-    config push --set-upstream origin master
+    config branch --set-upstream-to=origin/master master
