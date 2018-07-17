@@ -1,4 +1,4 @@
-* Installation
+# Installation
 
     git clone --bare git@github.com:penguincoder/dotfiles.git
     function config {
