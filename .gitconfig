@@ -1,0 +1,44 @@
+[push]
+  default = simple
+
+[user]
+  name = Andrew Coleman
+  email = penguincoder@gmail.com
+
+[core]
+  filemode = true
+  eol = lf
+  autocrlf = input
+
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+  ui = true
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = red
+
+[alias]
+  logp = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+
+  lg =  log --graph --date-order --first-parent \
+     --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
+  lgb = log --graph --date-order --branches --first-parent \
+     --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
+  lga = log --graph --date-order --all \
+   --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
+  up = pull --rebase
