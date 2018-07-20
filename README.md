@@ -14,6 +14,6 @@
     fi;
     config checkout
     config config status.showUntrackedFiles no
-    config branch --set-upstream-to=origin/master master
+    config push --set-upstream origin master
 
 Initialization script sourced from Atlassian: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
