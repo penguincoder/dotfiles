@@ -29,7 +29,7 @@ for k in $HOME/bin/*.bash ; do . $k ; done
 function _update_ps1() {
   PS1="$(powerline-shell $?)"
 }
-if [[ $(which powerline-shell) && "$TERM" != "linux" && -z $TMUX ]]; then
+if [[ $(which powerline-shell 2>/dev/null) && "$TERM" != "linux" && -z $TMUX ]]; then
   PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 else
   PS1='[\[\033[01;32m\]\u@\h\[\033[00m\] \[\033[01;34m\]\w$(__git_ps1 " (%s)")\[\033[00m\]]\$ '
