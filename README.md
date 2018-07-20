@@ -15,5 +15,7 @@
     config checkout
     config config status.showUntrackedFiles no
     config push --set-upstream origin master
+    config submodule init
+    config submodule update
 
 Initialization script sourced from Atlassian: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
