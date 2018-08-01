@@ -1,0 +1,83 @@
+#!/bin/bash
+# bash_completion for kerl
+
+_kerl()
+{
+    local cur prev
+    if type _get_comp_words_by_ref &>/dev/null ; then
+        _get_comp_words_by_ref cur prev
+    else
+        cur=$2 prev=$3
+    fi
+
+    case $prev in
+        kerl)
+            mapfile -t COMPREPLY < <( compgen -W 'build install update list delete active path status' -- "$cur" )
+            ;;
+        list)
+            mapfile -t COMPREPLY < <( compgen -W 'releases builds installations' -- "$cur" )
+            ;;
+        build)
+            if [ "$COMP_CWORD" -eq 2 ]; then
+                if [ -f "$HOME"/.kerl/otp_releases ]; then
+                    RELEASES=$(cat "$HOME"/.kerl/otp_releases)
+                fi
+                mapfile -t COMPREPLY < <( compgen -W "git $RELEASES" -- "$cur")
+            else
+                if [ -f "$HOME"/.kerl/otp_builds ]; then
+                    BUILDS=$(cut -d ',' -f 2 "$HOME"/.kerl/otp_builds)
+                fi
+                mapfile -t COMPREPLY < <( compgen -W "$BUILDS" -- "$cur")
+            fi
+            ;;
+        installation)
+            if [ -f "$HOME"/.kerl/otp_installations ]; then
+                PATHS=$(cut -d ' ' -f 2 "$HOME"/.kerl/otp_installations)
+            fi
+            mapfile -t COMPREPLY < <( compgen -W "$PATHS" -- "$cur")
+            ;;
+        install)
+            if [ -f "$HOME"/.kerl/otp_builds ]; then
+                BUILDS=$(cut -d ',' -f 2 "$HOME"/.kerl/otp_builds)
+            fi
+            mapfile -t COMPREPLY < <( compgen -W "$BUILDS" -- "$cur")
+            ;;
+         path)
+            INSTALL_LIST="$HOME"/.kerl/otp_installations
+            if [ -f "$INSTALL_LIST" ]; then
+                NAMES=$(cut -d ' ' -f 2 "$INSTALL_LIST" | xargs basename)
+            fi
+            mapfile -t COMPREPLY < <( compgen -W "$NAMES" -- "$cur")
+            ;;
+         deploy)
+            if [ "$COMP_CWORD" -eq 3 ]; then
+                if [ -f "$HOME"/.kerl/otp_installations ]; then
+                    PATHS=$(cut -d ' ' -f 2 "$HOME"/.kerl/otp_installations)
+                fi
+            fi
+            mapfile -t COMPREPLY < <( compgen -W "$PATHS" -- "$cur")
+            ;;
+        delete)
+            mapfile -t COMPREPLY < <( compgen -W 'build installation' -- "$cur")
+            ;;
+        update)
+            mapfile -t COMPREPLY < <( compgen -W 'releases' -- "$cur")
+            ;;
+        *)
+            if [ "$COMP_CWORD" -eq 3 ]; then
+                if [ -f "$HOME"/.kerl/otp_builds ]; then
+                    BUILDS=$(cut -d ',' -f 2 "$HOME"/.kerl/otp_builds)
+                fi
+                if [ -n "$BUILDS" ]; then
+                    for b in $BUILDS; do
+                        if [ "$prev" = "$b" ]; then
+                            _filedir
+                            return 0
+                        fi
+                    done
+                fi
+            fi
+            ;;
+    esac
+}
+complete -F _kerl kerl
