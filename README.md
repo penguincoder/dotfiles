@@ -27,6 +27,8 @@
     kerl update releases
     kerl build 21.0 21.0
     kerl install 21.0
+    . ~/bin/kerl.setup.bash
+    kiex install 1.7.3
     curl https://getmic.ro | bash && sudo cp micro /usr/local/bin && rm -f micro
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
     sudo touch /etc/apt/sources.list.d/kubernetes.list
