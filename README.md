@@ -19,3 +19,5 @@
     config submodule update
 
 Initialization script sourced from Atlassian: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
+
+Install `powerline-go` from https://github.com/justjanne/powerline-go/releases
