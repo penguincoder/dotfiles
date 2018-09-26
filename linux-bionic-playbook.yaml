@@ -29,7 +29,7 @@
         update_cache: true
     - name: install apt applications
       apt:
-        name: jq,python3-pip,python3-setuptools,python3-yaml,python3-wheel,apt-transport-https,socat,vim,emacs,curl,htop,tmux,libvirt-clients,libvirt-daemon-system,qemu-kvm,vpnc,virt-manager,virt-top,virt-goodies,git,vagrant,vagrant-libvirt,xsltproc,fop,openvpn,docker-ce,docker-compose,nextcloud-client
+        name: jq,python3-pip,python3-setuptools,python3-yaml,python3-wheel,apt-transport-https,socat,vim,emacs,curl,htop,tmux,libvirt-clients,libvirt-daemon-system,qemu-kvm,vpnc,virt-manager,virt-top,virt-goodies,git,vagrant,vagrant-libvirt,vagrant-mutate,xsltproc,fop,openvpn,docker-ce,docker-compose,nextcloud-client
         state: present
     - name: install pip applications
       pip:
