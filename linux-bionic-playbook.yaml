@@ -36,28 +36,28 @@
         name: awscli,saws
         state: present
     - name: install micro
-      shell: curl -sLo /tmp/micro.tar.gz https://github.com/zyedidia/micro/releases/download/v1.4.1/micro-1.4.1-linux64.tar.gz && mkdir -p /tmp/micro && tar xzf /tmp/micro.tar.gz -C /tmp/micro && install -m 755 /tmp/micro/micro-1.4.1/micro /usr/local/bin/micro-1.4.1 && rm -rf /tmp/micro* && ln -s /usr/local/bin/micro-1.4.1 /usr/local/bin/micro
+      shell: curl -sLo /tmp/micro.tar.gz https://github.com/zyedidia/micro/releases/download/v1.4.1/micro-1.4.1-linux64.tar.gz && mkdir -p /tmp/micro && tar xzf /tmp/micro.tar.gz -C /tmp/micro && install -m 755 /tmp/micro/micro-1.4.1/micro /usr/local/bin/micro-1.4.1 && rm -rf /tmp/micro* && ln -sf /usr/local/bin/micro-1.4.1 /usr/local/bin/micro
       args:
         warn: False
         creates: /usr/local/bin/micro-1.4.1
     - name: install kubectl
-      shell: curl -sLo /tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/1.11.3/bin/linux/amd64/kubectl && install -m 755 /tmp/kubectl /usr/local/bin/kubectl-1.11.3 && rm -f /tmp/kubectl && ln -s /usr/local/bin/kubectl-1.11.3 /usr/local/bin/kubectl
+      shell: curl -sLo /tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.11.3/bin/linux/amd64/kubectl && install -m 755 /tmp/kubectl /usr/local/bin/kubectl-1.11.3 && rm -f /tmp/kubectl && ln -sf /usr/local/bin/kubectl-1.11.3 /usr/local/bin/kubectl
       args:
         creates: /usr/local/bin/kubectl-1.11.3
     - name: install kops
-      shell: curl -sLo /tmp/kops -L https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64 && install -m 755 /tmp/kops /usr/local/bin/kops-1.10.0 && rm -f /tmp/kops && ln -s /usr/local/bin/kops-1.10.0 /usr/local/bin/kops
+      shell: curl -sLo /tmp/kops -L https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64 && install -m 755 /tmp/kops /usr/local/bin/kops-1.10.0 && rm -f /tmp/kops && ln -sf /usr/local/bin/kops-1.10.0 /usr/local/bin/kops
       args:
         creates: /usr/local/bin/kops-1.10.0
     - name: install minikube
-      shell: curl -sLo /tmp/minikube https://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64 && install -m 755 /tmp/minikube /usr/local/bin/minikube-0.28.2 && rm -f /tmp/minikube && ln -s /usr/local/bin/minikube-0.28.2 /usr/local/bin/minikube
+      shell: curl -sLo /tmp/minikube https://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64 && install -m 755 /tmp/minikube /usr/local/bin/minikube-0.28.2 && rm -f /tmp/minikube && ln -sf /usr/local/bin/minikube-0.28.2 /usr/local/bin/minikube
       args:
         creates: /usr/local/bin/minikube-0.28.2
     - name: install helm
-      shell: curl -sLo /tmp/helm.tar.gz https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz && mkdir -p /tmp/helm && tar xzf /tmp/helm.tar.gz -C /tmp/helm && install -m 755 /tmp/helm/linux-amd64/helm /usr/local/bin/helm-2.9.1 && rm -rf /tmp/helm* && ln -s /usr/local/bin/helm-2.9.1 /usr/local/bin/helm
+      shell: curl -sLo /tmp/helm.tar.gz https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz && mkdir -p /tmp/helm && tar xzf /tmp/helm.tar.gz -C /tmp/helm && install -m 755 /tmp/helm/linux-amd64/helm /usr/local/bin/helm-2.9.1 && rm -rf /tmp/helm* && ln -sf /usr/local/bin/helm-2.9.1 /usr/local/bin/helm
       args:
         creates: /usr/local/bin/helm-2.9.1
     - name: install docker-machine
-      shell: curl -sLo docker-machine https://github.com/docker/machine/releases/download/v0.14.0/docker-machine-linux-x86_64 && install -m 755 docker-machine /usr/local/bin/docker-machine-0.14.0 && rm -f docker-machine && ln -s /usr/local/bin/docker-machine-0.14.0 /usr/local/bin/docker-machine
+      shell: curl -sLo docker-machine https://github.com/docker/machine/releases/download/v0.14.0/docker-machine-linux-x86_64 && install -m 755 docker-machine /usr/local/bin/docker-machine-0.14.0 && rm -f docker-machine && ln -sf /usr/local/bin/docker-machine-0.14.0 /usr/local/bin/docker-machine
       args:
         warn: False
         creates: /usr/local/bin/docker-machine-0.14.0
@@ -66,7 +66,7 @@
       args:
         creates: /usr/local/bin/docker-machine-driver-kvm2
     - name: install powerline-go
-      shell: curl -sLo /tmp/powerline-go https://github.com/justjanne/powerline-go/releases/download/v1.11.0/powerline-go-linux-amd64 && install -m 755 /tmp/powerline-go /usr/local/bin/powerline-go-1.11.0 && rm -f /tmp/powerline-go && ln -s /usr/local/bin/powerline-go-1.11.0 /usr/local/bin/powerline-go
+      shell: curl -sLo /tmp/powerline-go https://github.com/justjanne/powerline-go/releases/download/v1.11.0/powerline-go-linux-amd64 && install -m 755 /tmp/powerline-go /usr/local/bin/powerline-go-1.11.0 && rm -f /tmp/powerline-go && ln -sf /usr/local/bin/powerline-go-1.11.0 /usr/local/bin/powerline-go
       args:
         creates: /usr/local/bin/powerline-go-1.11.0
     - name: install rustup
