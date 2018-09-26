@@ -1,0 +1,106 @@
+---
+- name: localdev setup
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  gather_facts: False
+  vars:
+    ansible_connection: local
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: configure static hostfile entry for git.consolo.lan
+      lineinfile:
+        path: /etc/hosts
+        line: "10.4.21.172 git.consolo.lan assets.git.consolo.lan"
+    - name: configure static hostfile entry for starbase4
+      lineinfile:
+        path: /etc/hosts
+        line: "10.4.21.100 starbase4 starbase4.consolo.lan"
+    - name: add docker-ce repo
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+        state: present
+        update_cache: true
+    - name: add nextcloud repo
+      apt_repository:
+        repo: "deb http://ppa.launchpad.net/nextcloud-devs/client/ubuntu bionic main"
+        state: present
+        update_cache: true
+    - name: install apt applications
+      apt:
+        name: jq,python3-pip,python3-setuptools,python3-yaml,python3-wheel,apt-transport-https,socat,vim,emacs,curl,htop,tmux,libvirt-clients,libvirt-daemon-system,qemu-kvm,vpnc,virt-manager,virt-top,virt-goodies,git,vagrant,vagrant-libvirt,xsltproc,fop,openvpn,docker-ce,docker-compose,nextcloud-client
+        state: present
+    - name: install pip applications
+      pip:
+        name: awscli,saws
+        state: present
+    - name: install micro
+      shell: curl -sLo /tmp/micro.tar.gz https://github.com/zyedidia/micro/releases/download/v1.4.1/micro-1.4.1-linux64.tar.gz && mkdir -p /tmp/micro && tar xzf /tmp/micro.tar.gz -C /tmp/micro && install -m 755 /tmp/micro/micro-1.4.1/micro /usr/local/bin/micro-1.4.1 && rm -rf /tmp/micro* && ln -s /usr/local/bin/micro-1.4.1 /usr/local/bin/micro
+      args:
+        warn: False
+        creates: /usr/local/bin/micro-1.4.1
+    - name: install kubectl
+      shell: curl -sLo /tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/1.11.3/bin/linux/amd64/kubectl && install -m 755 /tmp/kubectl /usr/local/bin/kubectl-1.11.3 && rm -f /tmp/kubectl && ln -s /usr/local/bin/kubectl-1.11.3 /usr/local/bin/kubectl
+      args:
+        creates: /usr/local/bin/kubectl-1.11.3
+    - name: install kops
+      shell: curl -sLo /tmp/kops -L https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64 && install -m 755 /tmp/kops /usr/local/bin/kops-1.10.0 && rm -f /tmp/kops && ln -s /usr/local/bin/kops-1.10.0 /usr/local/bin/kops
+      args:
+        creates: /usr/local/bin/kops-1.10.0
+    - name: install minikube
+      shell: curl -sLo /tmp/minikube https://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64 && install -m 755 /tmp/minikube /usr/local/bin/minikube-0.28.2 && rm -f /tmp/minikube && ln -s /usr/local/bin/minikube-0.28.2 /usr/local/bin/minikube
+      args:
+        creates: /usr/local/bin/minikube-0.28.2
+    - name: install helm
+      shell: curl -sLo /tmp/helm.tar.gz https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz && mkdir -p /tmp/helm && tar xzf /tmp/helm.tar.gz -C /tmp/helm && install -m 755 /tmp/helm/linux-amd64/helm /usr/local/bin/helm-2.9.1 && rm -rf /tmp/helm* && ln -s /usr/local/bin/helm-2.9.1 /usr/local/bin/helm
+      args:
+        creates: /usr/local/bin/helm-2.9.1
+    - name: install docker-machine
+      shell: curl -sLo docker-machine https://github.com/docker/machine/releases/download/v0.14.0/docker-machine-linux-x86_64 && install -m 755 docker-machine /usr/local/bin/docker-machine-0.14.0 && rm -f docker-machine && ln -s /usr/local/bin/docker-machine-0.14.0 /usr/local/bin/docker-machine
+      args:
+        warn: False
+        creates: /usr/local/bin/docker-machine-0.14.0
+    - name: install docker-machine-driver-kvm2
+      shell: curl -sLo docker-machine-driver-kvm2 https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2 && install -m 755 docker-machine-driver-kvm2 /usr/local/bin/docker-machine-driver-kvm2 && rm -f docker-machine-driver-kvm2
+      args:
+        creates: /usr/local/bin/docker-machine-driver-kvm2
+    - name: install powerline-go
+      shell: curl -sLo /tmp/powerline-go https://github.com/justjanne/powerline-go/releases/download/v1.11.0/powerline-go-linux-amd64 && install -m 755 /tmp/powerline-go /usr/local/bin/powerline-go-1.11.0 && rm -f /tmp/powerline-go && ln -s /usr/local/bin/powerline-go-1.11.0 /usr/local/bin/powerline-go
+      args:
+        creates: /usr/local/bin/powerline-go-1.11.0
+    - name: install rustup
+      become: no
+      shell: curl -o t.sh https://sh.rustup.rs -sSf && chmod 700 t.sh && ./t.sh --no-modify-path --verbose -y --default-toolchain nightly && rm -f t.sh
+      args:
+        creates: ~/.cargo/bin/rustup
+    - name: install kerl
+      shell: curl -O https://raw.githubusercontent.com/kerl/kerl/master/kerl && install -m 755 kerl /usr/local/bin/kerl && rm -f kerl
+      args:
+        warn: False
+        creates: /usr/local/bin/kerl
+    - name: update kerl releases
+      become: no
+      shell: kerl update releases
+      args:
+        creates: ~/.kerl/otp_releases
+    - name: build erlang 21.0
+      become: no
+      shell: kerl build 21.0 21.0
+      args:
+        creates: ~/.kerl/builds/21.0
+    - name: install erlang 21.0
+      become: no
+      shell: kerl install 21.0
+      args:
+        creates: ~/.kerl/installs/21.0
+    - name: install kiex
+      become: no
+      shell: curl -sSL https://raw.githubusercontent.com/taylor/kiex/master/install | bash -s
+      args:
+        creates: ~/.kiex/bin/kiex
+    - name: install elixir
+      become: no
+      shell: source ~/bin/kerl.setup.bash && kiex install 1.7.3
+      args:
+        creates: ~/.kiex/elixirs/elixir-1.7.3
