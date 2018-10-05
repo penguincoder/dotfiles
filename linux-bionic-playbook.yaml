@@ -17,11 +17,21 @@
       lineinfile:
         path: /etc/hosts
         line: "10.4.21.100 starbase4 starbase4.consolo.lan"
+    - name: add docker-ce pubkey
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: 7EA0A9C3F273FCD8
+        state: present
     - name: add docker-ce repo
       apt_repository:
         repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
         state: present
         update_cache: true
+    - name: add nextcloud pubkey
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: 60EE47FBAD3DD469
+        state: present
     - name: add nextcloud repo
       apt_repository:
         repo: "deb http://ppa.launchpad.net/nextcloud-devs/client/ubuntu bionic main"
@@ -29,7 +39,7 @@
         update_cache: true
     - name: install apt applications
       apt:
-        name: jq,python3-pip,python3-setuptools,python3-yaml,python3-wheel,apt-transport-https,socat,vim,emacs,curl,htop,tmux,libvirt-clients,libvirt-daemon-system,qemu-kvm,vpnc,virt-manager,virt-top,virt-goodies,git,vagrant,vagrant-libvirt,vagrant-mutate,xsltproc,fop,openvpn,docker-ce,docker-compose,nextcloud-client
+        name: jq,python3-pip,python3-setuptools,python3-yaml,python3-wheel,apt-transport-https,socat,vim,emacs,curl,htop,tmux,libvirt-clients,libvirt-daemon-system,qemu-kvm,vpnc,virt-manager,virt-top,virt-goodies,git,vagrant,vagrant-libvirt,vagrant-mutate,xsltproc,fop,openvpn,docker-ce,docker-compose,nextcloud-client,build-essential,libssl-dev,libncurses5-dev
         state: present
     - name: install pip applications
       pip:
@@ -43,6 +53,7 @@
     - name: install kubectl
       shell: curl -sLo /tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.11.3/bin/linux/amd64/kubectl && install -m 755 /tmp/kubectl /usr/local/bin/kubectl-1.11.3 && rm -f /tmp/kubectl && ln -sf /usr/local/bin/kubectl-1.11.3 /usr/local/bin/kubectl
       args:
+        warn: False
         creates: /usr/local/bin/kubectl-1.11.3
     - name: install kops
       shell: curl -sLo /tmp/kops -L https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64 && install -m 755 /tmp/kops /usr/local/bin/kops-1.10.0 && rm -f /tmp/kops && ln -sf /usr/local/bin/kops-1.10.0 /usr/local/bin/kops
@@ -98,9 +109,10 @@
       become: no
       shell: curl -sSL https://raw.githubusercontent.com/taylor/kiex/master/install | bash -s
       args:
+        warn: False
         creates: ~/.kiex/bin/kiex
     - name: install elixir
       become: no
-      shell: source ~/bin/kerl.setup.bash && kiex install 1.7.3
+      shell: . ~/bin/kerl.setup.bash && kiex install 1.7.3
       args:
         creates: ~/.kiex/elixirs/elixir-1.7.3
