@@ -13,10 +13,14 @@
       lineinfile:
         path: /etc/hosts
         line: "10.4.21.172 git.consolo.lan assets.git.consolo.lan"
-    - name: configure static hostfile entry for starbase4
+    - name: configure static hostfile entry for starbase4.consolo.lan
       lineinfile:
         path: /etc/hosts
         line: "10.4.21.100 starbase4 starbase4.consolo.lan"
+    - name: configure static hostfile entry for errbit.consolo.lan
+      lineinfile:
+        path: /etc/hosts
+        line: "10.4.21.136 errbit.consolo.lan"
     - name: add docker-ce repo
       apt_repository:
         repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
