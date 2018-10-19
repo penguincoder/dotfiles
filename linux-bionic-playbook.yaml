@@ -66,6 +66,7 @@
     - name: install minikube
       shell: curl -sLo /tmp/minikube https://storage.googleapis.com/minikube/releases/v0.30.0/minikube-linux-amd64 && install -m 755 /tmp/minikube /usr/local/bin/minikube-0.30.0 && rm -f /tmp/minikube && ln -sf /usr/local/bin/minikube-0.30.0 /usr/local/bin/minikube
       args:
+        warn: False
         creates: /usr/local/bin/minikube-0.30.0
     - name: install helm
       shell: curl -sLo /tmp/helm.tar.gz https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz && mkdir -p /tmp/helm && tar xzf /tmp/helm.tar.gz -C /tmp/helm && install -m 755 /tmp/helm/linux-amd64/helm /usr/local/bin/helm-2.9.1 && rm -rf /tmp/helm* && ln -sf /usr/local/bin/helm-2.9.1 /usr/local/bin/helm
