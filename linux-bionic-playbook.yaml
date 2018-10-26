@@ -21,6 +21,10 @@
       lineinfile:
         path: /etc/hosts
         line: "10.4.21.136 errbit.consolo.lan"
+    - name: configure static hostfile entry for api-docs.consolo.lan
+      lineinfile:
+        path: /etc/hosts
+        line: "10.4.21.100 api-docs.consolo.lan"
     - name: add docker-ce pubkey
       apt_key:
         keyserver: keyserver.ubuntu.com
