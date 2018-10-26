@@ -251,13 +251,17 @@ _rustup() {
             return 0
             ;;
         rustup__doc)
-            opts=" -h -V  --path --book --std --reference --help --version  "
+            opts=" -h -V  --path --book --std --reference --help --version --toolchain  "
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
                 return 0
             fi
             case "${prev}" in
                 
+                --toolchain)
+                    COMPREPLY=($(compgen -f ${cur}))
+                    return 0
+                    ;;
                 *)
                     COMPREPLY=()
                     ;;
@@ -266,13 +270,17 @@ _rustup() {
             return 0
             ;;
         rustup__docs)
-            opts=" -h -V  --path --book --std --reference --help --version  "
+            opts=" -h -V  --path --book --std --reference --help --version --toolchain  "
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
                 return 0
             fi
             case "${prev}" in
                 
+                --toolchain)
+                    COMPREPLY=($(compgen -f ${cur}))
+                    return 0
+                    ;;
                 *)
                     COMPREPLY=()
                     ;;
