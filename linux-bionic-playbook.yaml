@@ -91,7 +91,7 @@
         creates: /usr/local/bin/powerline-go-1.11.0
     - name: install rustup
       become: no
-      shell: curl -o t.sh https://sh.rustup.rs -sSf && chmod 700 t.sh && ./t.sh --no-modify-path --verbose -y --default-toolchain nightly && rm -f t.sh
+      shell: curl -o t.sh https://sh.rustup.rs -sSf && chmod 700 t.sh && ./t.sh --no-modify-path --verbose -y --default-toolchain stable && rm -f t.sh
       args:
         creates: ~/.cargo/bin/rustup
     - name: install kerl
