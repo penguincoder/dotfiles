@@ -34,11 +34,11 @@
 
 [alias]
   logp = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-
-  lg =  log --graph --date-order --first-parent \
+  lg = log --graph --date-order --first-parent \
      --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
   lgb = log --graph --date-order --branches --first-parent \
      --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
   lga = log --graph --date-order --all \
    --pretty=format:'%C(auto)%h%Creset %C(auto)%d%Creset %s %C(green)(%ad) %C(bold cyan)<%an>%Creset'
   up = pull --rebase
+  branches-last-updated = branch -rv --sort=committerdate --format='%(HEAD) %(color:green)%(committerdate:relative)%(color:reset)\t%(color:magenta)%(authorname)%(color:reset)\t%(color:yellow)%(refname:short)%(color:reset)'
