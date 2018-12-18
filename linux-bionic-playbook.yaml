@@ -74,6 +74,7 @@
     - name: install kops
       shell: curl -sLo /tmp/kops -L https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64 && install -m 755 /tmp/kops /usr/local/bin/kops-1.10.0 && rm -f /tmp/kops && ln -sf /usr/local/bin/kops-1.10.0 /usr/local/bin/kops
       args:
+        warn: False
         creates: /usr/local/bin/kops-1.10.0
     - name: install minikube
       shell: curl -sLo /tmp/minikube https://storage.googleapis.com/minikube/releases/v0.30.0/minikube-linux-amd64 && install -m 755 /tmp/minikube /usr/local/bin/minikube-0.30.0 && rm -f /tmp/minikube && ln -sf /usr/local/bin/minikube-0.30.0 /usr/local/bin/minikube
