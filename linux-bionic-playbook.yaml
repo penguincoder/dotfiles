@@ -131,6 +131,6 @@
         creates: ~/.kiex/bin/kiex
     - name: install elixir
       become: no
-      shell: . ~/bin/kerl.setup.bash && kiex install 1.7.3
+      shell: . ~/bin/kerl.setup.bash && kiex install 1.7.4
       args:
-        creates: ~/.kiex/elixirs/elixir-1.7.3
+        creates: ~/.kiex/elixirs/elixir-1.7.4
