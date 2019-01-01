@@ -17,4 +17,4 @@ config config status.showUntrackedFiles no
 config push --set-upstream origin master
 config submodule init
 config submodule update
-fc-cache -f -v ~/.fonts
+which fc-cache && fc-cache -f -v ~/.fonts || true
