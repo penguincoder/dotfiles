@@ -9,10 +9,6 @@
     ansible_connection: local
     ansible_python_interpreter: /usr/bin/python3
   tasks:
-    - name: configure static hostfile entry for git.consolo.lan
-      lineinfile:
-        path: /etc/hosts
-        line: "10.4.21.172 git.consolo.lan assets.git.consolo.lan"
     - name: configure static hostfile entry for starbase4.consolo.lan
       lineinfile:
         path: /etc/hosts
