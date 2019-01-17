@@ -130,3 +130,9 @@
       shell: . ~/bin/kerl.setup.bash && kiex install 1.7.4
       args:
         creates: ~/.kiex/elixirs/elixir-1.7.4
+    - name: install kitty terminal emulator
+      become: no
+      shell: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n && ln -s ~/.local/kitty.app/bin/kitty ~/bin/ && cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications && sed -i "s/Icon\=kitty/Icon\=\/home\/$USER\/.local\/kitty.app\/share\/icons\/hicolor\/256x256\/apps\/kitty.png/g" ~/.local/share/applications/kitty.desktop
+      args:
+        warn: False
+        creates: ~/bin/kitty
