@@ -30,7 +30,7 @@ for k in $HOME/bin/*.bash ; do . $k ; done
 function _update_ps1() {
   PS1="$(powerline-go -error $?)"
 }
-if [[ $(which powerline-go 2>/dev/null) && "$TERM" != "linux" && "$TERM_PROGRAM" != "vscode" ]]; then
+if [[ $(which powerline-go 2>/dev/null) && "$TERM" != "linux" && "$TERM_PROGRAM" != "vscode" && "$TERM" != "screen" ]]; then
   PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 else
   PS1='[\[\033[01;32m\]\u@\h\[\033[00m\] \[\033[01;34m\]\w$(__git_ps1 " (%s)")\[\033[00m\]]\$ '
