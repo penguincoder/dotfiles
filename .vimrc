@@ -16,9 +16,6 @@ set expandtab
 set listchars=tab:>-,trail:-
 set list
 syntax on
-set t_Co=256
-color koehler
-color Tomorrow-Night-Bright
 
 filetype on
 filetype plugin on
@@ -30,7 +27,6 @@ nmap n nzz
 nmap N Nzz
 
 let g:lightline = {
-      \ 'colorscheme': 'Tomorrow_Night_Blue',
       \ 'component': {
       \   'readonly': '%{&readonly?"":""}',
       \ },
